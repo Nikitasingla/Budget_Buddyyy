@@ -1,0 +1,74 @@
+{% extends 'blueprint.html' %}
+{% block title %}{{ budget.name }}{% endblock %}
+{% block content %}
+<h2>{{ budget.name }} - ₹{{ budget.total_budget }}</h2>
+
+<h3>Members</h3>
+<ul>
+  {% for member in budget.members.all %}
+    <li>{{ member.username }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Contributions</h3>
+<ul>
+  {% for c in contributions %}
+    <li>{{ c.user.username }}: ₹{{ c.amount }} - {{ c.note }} on {{ c.date }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Add Contribution</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add</button>
+</form>
+
+
+
+<h3 style="margin-top: 30px;">Contribution Chart</h3>
+<canvas id="contributionChart" width="400" height="200"></canvas>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Get data passed from Django view
+  const labels = JSON.parse('{{ labels_json|escapejs }}');
+  const data = JSON.parse('{{ data_json|escapejs }}');
+
+  const ctx = document.getElementById('contributionChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'bar', // Change to 'pie' or 'doughnut' if you like
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Amount Contributed (₹)',
+              data: data,
+              backgroundColor: [
+                  '#f94144', '#f3722c', '#f9c74f', '#90be6d', '#43aa8b',
+                  '#577590', '#277da1', '#ffb703', '#fb8500'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          responsive: true,
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          plugins: {
+              title: {
+                  display: true,
+                  text: 'Contributions by Members'
+              }
+          }
+      }
+  });
+</script>
+
+
+<a href="{% url 'shared_budget_list' %}">Back to Budgets</a>
+{% endblock %}

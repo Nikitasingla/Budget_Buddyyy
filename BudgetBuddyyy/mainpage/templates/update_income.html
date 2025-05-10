@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Update Income</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="{% url 'add_income' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinTrak - About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #111;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    /* Navbar Styles */
+    #head {
+      background-color: black;
+      height: 9vh;
+      width: 94vw;
+      margin: 2vh 3vw;
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 2vw;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #head #logo img {
+      height: 9.8vh;
+      width: 11vw;
+    }
+
+    #head #div {
+      width: max-content;
+      display: flex;
+      gap: 1.3vw;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    #div a {
+      color: white;
+      text-decoration: none;
+    }
+
+    #reg {
+      background-color: white;
+      padding: 7px 15px;
+      border-radius: 20px;
+    }
+
+    #sign {
+      padding: 7px 10px;
+      border-radius: 20px;
+      border: 2px solid white;
+    }
+
+    /* Hero Image Section */
+    .hero {
+      position: relative;
+      width: 100%;
+      max-height: 480px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(4px) brightness(0.8);
+      display: block;
+    }
+
+    .about-section {
+      padding: 60px 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      text-align: left;
+      margin-bottom: 40px;
+      color: #000;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .section-block {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .section-block:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .text-block {
+      flex: 1 1 500px;
+    }
+
+    .section-block img {
+      flex: 1 1 400px;
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .video-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .video-section video {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .video-section .caption {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #000;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    
+.footer {
+  background-color: #000;
+  color:aliceblue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 60px 30px 30px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section, .footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-brand h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.footer-section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #f0d23b;
+}
+
+.social-icons a img {
+  width: 26px;
+  margin-right: 12px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+  </style>
+</head>
+<body>
+  <header id="head">  
+    <div id="logo"><a href="{% url 'base' %}"><img src="{% static 'images/lllogo.png' %}" alt="Logo"></a></div>
+    <div id="div">
+      {% if user.is_authenticated %}
+           <div class="dropdown">
+                    <button class="btn transparent " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="outline: none;border: none;height:5.5vh;padding-right: 0vw;font-size: 3vh;color: white; margin-bottom: 5px;">
+                      Dashboard
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'add_income' %}">Income</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'add_expense' %}">Expenses</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'dashboard' %}">Insights</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'set_limit' %}">Set Limit</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'shared_budget_list' %}">Shared Budgets</a></li>
+                    </ul>
+            </div>
+            <div><a href="{% url 'home' %}">Stock</a></div>
+        <div><a href="{% url 'about' %}">About Us</a></div>
+        <div id="sign"><a href="{% url 'profile' %}">{{ user.username }}</a></div>
+        <div id="reg"><a href="{% url 'logout' %}" style="color: black;">Log Out</a></div>
+      {% else %}
+        <div><a href="{% url 'about' %}">About Us</a></div>
+        <div id="sign"><a href="{% url 'register' %}">Sign Up</a></div>
+        <div id="reg"><a href="{% url 'login' %}" style="color: black;">Log In</a></div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="hero">
+    <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg" alt="Hero Team Image" />
+  </div>
+
+  <section class="about-section">
+    <h1 class="title">About BudgetBuddy</h1>
+
+    <div class="content fade-in">
+
+      <div class="section-block">
+        <div class="text-block">
+          <h2>Empowering Your Everyday</h2>
+          <p>
+            BudgetBuddy is your companion in mastering lifestyle and financial awareness. Established in 2024, our goal has always been simple — make everyday management intuitive and empowering.
+          </p>
+        </div>
+        <img src="https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg" alt="Teamwork in progress" />
+      </div>
+
+      <div class="section-block">
+        <div class="text-block">
+          <h2>Designed for Modern Living</h2>
+          <p>
+            Whether it’s tracking your goals or improving your productivity, BudgetBuddy supports your modern lifestyle with simplicity and style.
+          </p>
+        </div>
+        <img src="https://images.pexels.com/photos/4065141/pexels-photo-4065141.jpeg" alt="Organized workspace" />
+      </div>
+
+      <div class="section-block">
+        <div class="text-block">
+          <h2>Seamless Digital Experience</h2>
+          <p>
+            Our platform brings together powerful tools and user-friendly design, so managing your data and goals becomes a seamless part of your daily routine.
+          </p>
+        </div>
+        <img src="https://images.pexels.com/photos/5427658/pexels-photo-5427658.jpeg" alt="Creative digital workspace" />
+      </div>
+
+    </div>
+
+    <!-- <div class="video-section fade-in">
+      <video controls poster="https://images.pexels.com/photos/2703485/pexels-photo-2703485.jpeg">
+        <source src="https://player.vimeo.com/external/334614228.hd.mp4?s=f81d82c7dcefae2c3887df9f12dbfe8c4428d205&profile_id=174" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <p class="caption">Experience how BudgetBuddy is redefining clarity and simplicity for professionals worldwide.</p>
+    </div> -->
+
+    <div class="cta fade-in">
+      <h2>Your Journey to Simpler Living Starts Now</h2>
+      <p>Join thousands already thriving with BudgetBuddy.</p>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>BudgetBuddy</h2>
+        <p>Your smart personal finance tracker for modern living.</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'register' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'set_limit' %}">Set Budget Limit</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: support@budgetbuddy.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Location: 123 FinTech Avenue, NY</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png" alt="Instagram" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; 2025 BudgetBuddy. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  
+</body>
+</html>

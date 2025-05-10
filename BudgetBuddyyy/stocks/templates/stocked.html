@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>Stock Search</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #header {
+        display: flex;
+        justify-content: center;
+      }
+
+      header {
+        background-color: black;
+        height: 9vh;
+        width: 96vw;
+        margin-top: 2vh;
+        margin-bottom: 3vh;
+        z-index: 4;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 20px;
+        box-sizing: border-box;
+      }
+
+      header > #div > nav {
+        width: auto;
+        display: flex;
+        align-items: center;
+        /* justify-content: space-evenly; */
+        gap: 21px;
+        color: whitesmoke;
+        /* font-size: 15px; */
+      }
+      header > #div > nav a {
+        text-decoration: none;
+      }
+      .navigation {
+        font-size: 23px;
+        color: whitesmoke;
+      }
+      #logo img {
+        height: 9vh;
+        width: 8vw;
+      }
+
+      h1 {
+        margin-top: 30px;
+        color: #333;
+      }
+
+      form {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        width: 280px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 10px 18px;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #444;
+      }
+
+      .stock-info {
+        margin-top: 40px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 700px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .stock-info img {
+        height: 80px;
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      li {
+        margin: 5px 0;
+      }
+
+      .error {
+        color: red;
+        margin-top: 20px;
+      }
+      .all-stocks {
+        margin-top: 40px;
+        width: 90%;
+        max-width: 900px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .stock-card {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease;
+      }
+
+      .stock-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stock-card img {
+        height: 60px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+      }
+
+      .stock-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .stock-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0.95em;
+        color: #444;
+      }
+
+      .stock-card li {
+        margin: 5px 0;
+      }
+
+      #stockk {
+        font-size: 38px;
+      }
+      .footer {
+        width: 94.5vw;
+        overflow-x: hidden;
+  background-color: #000;
+  color:aliceblue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 60px 30px 30px;
+  margin-top: 4vh;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section, .footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-brand h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.footer-section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #f0d23b;
+}
+
+.social-icons a img {
+  width: 26px;
+  margin-right: 12px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #bbb;
+}
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <header>
+        <div id="logo"><img src="{% static 'image.png' %}" alt="" /></div>
+        <div id="div">
+          <nav>
+            <a href="{% url 'base' %}" class="navigation">Home </a>
+            <a href="{% url 'search_stock' %}" class="navigation">Stocks</a>
+            <a href="{% url 'bought_stocks' %}" class="navigation">Bought</a>
+            <div
+              style="
+                display: inline;
+                border: 1px solid whitesmoke;
+                border-radius: 15px;
+                padding: 8px 8px;
+              "
+            >
+              <a href="" style="color: white">{{user.username}}</a>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
+
+    <h1>🔍 Search for a Stock</h1>
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="symbol"
+        placeholder="Enter stock symbol (e.g., AAPL)"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+    
+    {% if stock %}
+    <div class="stock-info">
+      <h2>{{ stock.symbol }}</h2>
+      {% if stock.image_url %}
+      <img src="{{ stock.image_url }}" alt="{{ stock.symbol }} logo" />
+      {% endif %}
+      <ul>
+        <li><strong>Price:</strong> ${{ stock.price }}</li>
+        <li><strong>Open:</strong> ${{ stock.open }}</li>
+        <li><strong>High:</strong> ${{ stock.high }}</li>
+        <li><strong>Low:</strong> ${{ stock.low }}</li>
+      </ul>
+      <form method="post" action="{% url 'buy_stock' %}">
+        {% csrf_token %}
+        <input type="hidden" name="symbol" value="{{stock.symbol}}">
+        <button type="submit" style="margin-top: 10px; padding: 8px 12px; background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer;">Buy Now</button>
+      </form>
+    </div>
+    {% elif error %}
+    <p class="error">{{ error }}</p>
+    {% endif %} 
+
+    {% if user.is_staff %}
+      <div>
+        <button  style="margin-top: 30px; padding: 15px 20px; background-color: green; color: white; border: none; border-radius: 5px; cursor: pointer;"> <a href="{% url 'added' %} " style="color: white;text-decoration: none;"> +  Add New Stock</a></button>
+      </div>
+
+    {% endif %}
+
+    {% if all_stocks %}
+    <h2 id="stockk">📈 All Available Stocks</h2>
+    <div class="all-stocks">
+      {% for s in all_stocks %}
+      <div class="stock-card">
+        <h3>{{ s.symbol }}</h3>
+        {% if s.image_url %}
+        <img src="{{ s.image_url }}" alt="{{ s.symbol }} logo" />
+        {% endif %}
+        <ul>
+          <li><strong>Price:</strong> ${{ s.price }}</li>
+          <li><strong>Open:</strong> ${{ s.open }}</li>
+          <li><strong>High:</strong> ${{ s.high }}</li>
+          <li><strong>Low:</strong> ${{ s.low }}</li>
+        </ul>
+        <br />
+        
+        {% if user.is_staff %}
+          <div style="display: flex;gap: 7px;margin-left: 55px;">
+          <div><form ><button style="margin-top: 10px; padding: 8px 12px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer;"><a href="{% url 'update' s.symbol %}" style="color: white;text-decoration: none;">Update</a></button></form></div>       
+          <div>
+            <form method="post" action="{% url 'del' s.symbol %}">
+              {% csrf_token %}
+              <input type="hidden" name="symbol" value="{{s.symbol}}">
+              <button type="submit" style="margin-top: 10px; padding: 8px 12px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+            </form>
+          </div>   
+          
+        </div>
+        <form method="post" action="{% url 'buy_stock' %}">
+          {% csrf_token %}
+          <input type="hidden" name="symbol" value="{{s.symbol}}">
+          <button type="submit" style="margin-top: 10px; padding: 8px 12px; background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer;">Buy Now</button>
+        </form>
+        {% else %}
+        <form method="post" action="{% url 'buy_stock' %}">
+          {% csrf_token %}
+          <input type="hidden" name="symbol" value="{{s.symbol}}">
+          <button type="submit" style="margin-top: 10px; padding: 8px 12px; background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer;">Buy Now</button>
+        </form>
+        {% endif %}
+        
+      
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-brand">
+            <h2>StockBuddy</h2>
+            <p>Your smart personal finance tracker for modern living.</p>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="{% url 'about' %}">About Us</a></li>
+              <li><a href="{% url 'register' %}">Sign Up</a></li>
+              <li><a href="{% url 'bought_stocks' %}">Bought</a></li>
+              <li><a href="{% url 'base' %}">Budgets</a></li>
+              <li><a href="{% url 'search_stock' %}">Stocks</a></li>
+            </ul>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>Email: support@budgetbuddy.com</p>
+            <p>Phone: +1 (555) 123-4567</p>
+            <p>Location: 123 FinTech Avenue, NY</p>
+          </div>
+      
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png" alt="Instagram" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" /></a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="footer-bottom">
+          <p>&copy; 2025 StockBuddy. All rights reserved.</p>
+        </div>
+      </footer>
+<script src="https://kit.fontawesome.com/8f19d79027.js" crossorigin="anonymous"></script>
+  </body>
+</html>

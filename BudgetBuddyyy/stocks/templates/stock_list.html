@@ -1,0 +1,64 @@
+
+{% extends 'based2.html' %}
+{% block style_block %}
+<style>
+    #dived{
+        width: 100vw;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 3vh;
+        /* border: 1px solid black; */
+        /* margin-left: 15vw; */
+
+    }
+    #dived>div{
+        height: max-content;
+        /* height: 50vh; */
+        /* width: 35vw; */
+        /* margin: auto; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* border: 1px solid black; */
+        /* width: 25vw; */
+    }
+    #dived>div>div{
+        /* border: 1px solid black; */
+        height: 38vh;
+        text-align: center;
+        padding: 0px 30px 20px 30px;
+        background-color: white;
+        border-radius: 10px;
+        width: 20vw;
+    }
+    #dived>div>div button{
+        background-color: black;
+        color: white;
+        border-radius: 18px;
+        margin-top: 5px;
+        height: 5vh;
+        width: 9vw;
+
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<h1 style="text-align: center;font-size: 8vh;" >Stocks you can Buy:</h1>
+<div id="dived" style="margin-bottom: 4vh;">
+    
+{% for stock in stocks %}
+<div>
+    <div>
+        <br><br><br>
+        <img src="{{ stock.image_url }}" height="50px" width="80px"><br><br>
+        {{ stock.name }} <br><br> Rs.{{ stock.price }}
+        <form action="{% url 'add_to_cart' stock.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit"><i class="fa-solid fa-cart-plus" style="color: #ffffff; margin-right: 5px;"></i>Buy Now</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

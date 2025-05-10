@@ -1,0 +1,111 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    .income-section {
+        margin: 100px auto;
+        max-width: 600px;
+        background-color: #fffef5;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .income-section h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .table-section {
+        margin: 50px auto;
+        max-width: 900px;
+    }
+
+    .table thead {
+        background-color: #198754;
+        color: white;
+    }
+
+    .btn {
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="income-section">
+        <h2>Add Income</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input type="number" class="form-control" name="amount" required>
+            </div>
+            <div class="mb-3">
+                <label for="source" class="form-label">Source</label>
+                <select class="form-select" name="source" required>
+                    <option value="">Select Source</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Freelancing">Freelancing</option>
+                    <option value="Business">Business</option>
+                    <option value="Gifts">Gifts</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Add Income</button>
+        </form>
+    </div>
+
+    <div class="table-section">
+        <h3 class="text-center mb-4">Your Income</h3>
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Source</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <td>{{ income.amount }}</td>
+                    <td>{{ income.source }}</td>
+                    <td>{{ income.description }}</td>
+                    <td>{{ income.date }}</td>
+                    <td>
+                        <a href="{% url 'update_income' income.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_income' income.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No income records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Shared Budgets{% endblock %}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fffef4;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffdc5e;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      color: #222;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+      background: #fff9d6;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    form {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: #ffb703;
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #fbbf24;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    a button {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header style="display: flex;justify-content: space-between;padding: 12px 30px;">
+    <h1>Shared Budget </h1>
+    <button id="butto" style="background-color: black;display: flex;gap: 8px;flex-direction: row;"><i class="fa-solid fa-house" style="color: #ffffff;font-size: 15px;padding-top: 1.8px;"></i><a href="{% url 'base' %}" style="color: white; text-decoration: none;font-size: 18px;">Home</a></button>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <script src="https://kit.fontawesome.com/8f19d79027.js" crossorigin="anonymous"></script>
+</body>
+</html>

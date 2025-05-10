@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+  <title>Personal Finance Tracker</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar over the video */
+    header {
+      position: absolute;
+      top: 2vh;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: black;
+      color: white;
+      width: 90vw;
+      height: 9vh;
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3vw;
+      z-index: 1000;
+    }
+
+    header #logo img {
+      height: 8vh;
+    }
+
+    header #div {
+      display: flex;
+      gap: 1.3vw;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    header #div a {
+      color: white;
+      text-decoration: none;
+    }
+
+    #reg {
+      background-color: white;
+      padding: 7px 15px;
+      border-radius: 20px;
+    }
+
+    #reg a {
+      color: black !important;
+    }
+
+    #sign {
+      padding: 7px 10px;
+      border-radius: 20px;
+      border: 2px solid white;
+    }
+
+    /* Hero video section */
+    .video-section {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .video-section video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 8vw;
+      transform: translateY(-50%);
+      color: black;
+      z-index: 2;
+      width: 40vw;
+    }
+
+    .overlay-text h3 {
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    .overlay-text button {
+      margin-top: 30px;
+      height: 9vh;
+      width: 15vw;
+      background-color: black;
+      font-size: 25px;
+      border-radius: 20px;
+      border: none;
+    }
+
+    .overlay-text button a {
+      color: whitesmoke;
+      text-decoration: none;
+    }
+
+    #maindiv3 {
+        padding: 8vh 4vw;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      #maindiv3 h1 {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 3.5rem;
+        margin-bottom: 5vh;
+        font-family: "Libre Baskerville", serif;
+        position: relative;
+      }
+
+      #maindiv3 h1::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: #63e6be;
+      }
+
+      #steps {
+        display: flex;
+        height: 70vh;
+        gap: 3vw;
+        max-width: 1400px;
+        overflow: scroll;
+        margin: 0 auto;
+      }
+
+      #step1 {
+        width: 20%;
+        height: 70vh;
+        /* overflow: scroll; */
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+
+      #step1 > div {
+        background: white;
+        border-radius: 15px;
+        padding: 2vh;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      #step1 > div:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #step1 > div > a {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        font-weight: 600;
+        display: block;
+        padding: 1vh;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        /* text-align: center; */
+      }
+
+      #step1 > div > a:hover {
+        color: #63e6be;
+        transform: scale(1.05);
+      }
+
+      #step2 {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        /* overflow: flow; */
+        /* height: 80vh; */
+        gap: 3vh;
+      }
+
+      .steep {
+        background: white;
+        border-radius: 20px;
+        padding: 3vh 3vw;
+        display: flex;
+        gap: 4vw;
+        align-items: center;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .steep:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .steeped {
+        flex: 1;
+        padding: 2vh 0;
+      }
+
+      .steeped h4 {
+        color: #63e6be;
+        font-size: 1.2rem;
+        margin-bottom: 1vh;
+        font-weight: 600;
+      }
+
+      .steeped h2 {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 2vh;
+        font-family: "Libre Baskerville", serif;
+      }
+
+      .steeped ol {
+        padding-left: 1.5rem;
+        color: #6c757d;
+        line-height: 1.8;
+      }
+
+      .steeped p {
+        color: #6c757d;
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+
+      .steep img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .steep:hover img {
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        #steps {
+          flex-direction: column;
+        }
+
+        #step1,
+        #step2 {
+          width: 100%;
+        }
+
+        #step1 {
+          flex-direction: row;
+          overflow-x: auto;
+          padding: 2vh 0;
+        }
+
+        #step1 > div {
+          min-width: 150px;
+        }
+
+        .steep {
+          flex-direction: column;
+          text-align: center;
+          padding: 4vh 4vw;
+        }
+
+        .steep img {
+          width: 100%;
+          height: 250px;
+          margin-top: 2vh;
+        }
+
+        #maindiv3 h1 {
+          font-size: 2.5rem;
+        }
+    }
+    #maindiv4 {
+        padding-top: 4vh;
+        display: flex;
+        flex-direction: column;
+        gap: 7vh;
+      }
+
+      #maindiv4 h1 {
+        font-size: 8vh;
+        text-align: center;
+      }
+
+      #blogs {
+        display: flex;
+        flex-direction: row;
+        gap: 1.6vw;
+        justify-content: center;
+        /* border: 1px solid black; */
+        height: max-content;
+        width: max-content;
+        margin: auto;
+        border-radius: 20px;
+        /* overflow: hidden;    */
+        /* box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em; */
+        margin-bottom: 7vh;
+      }
+
+      .blogged {
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      #blogs div {
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        height: max-content;
+      }
+
+      #blogs > div:hover iframe {
+        /* height: 60vh; */
+        /* width: 21vw; */
+        transform: scale(1.1);
+      }
+      .stats-section {
+        display: flex;
+        justify-content: space-around;
+        padding: 5vh 0;
+        background: azure;
+        margin-bottom: 1vh;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat h2 {
+        font-size: 4vh;
+        color: #2c3e50;
+      }
+
+    .footer {
+  background-color: #000;
+  color:aliceblue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 60px 30px 30px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section, .footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-brand h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.footer-section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #f0d23b;
+}
+
+.social-icons a img {
+  width: 26px;
+  margin-right: 12px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+    @media (max-width: 768px) {
+      .overlay-text {
+        width: 80vw;
+      }
+
+      .overlay-text h3 {
+        font-size: 30px;
+      }
+
+      .overlay-text button {
+        width: 50vw;
+      }
+
+      header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+      }
+
+      header #div {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div id="logo"><a href="{% url 'base' %}"><img src="{% static 'images/lllogo.png' %}" alt="Logo"></a></div>
+    <div id="div">
+      {% if user.is_authenticated %}
+            <div class="dropdown">
+                    <button class="btn transparent " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="outline: none;border: none;height:5.5vh;font-size: 3vh;padding-right: 0vw;color: white; margin-bottom: 5px; " >
+                      Dashboard
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'add_income' %}">Income</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'add_expense' %}">Expenses</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'dashboard' %}">Insights</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'set_limit' %}">Set Limit</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'shared_budget_list' %}">Shared Budgets</a></li>
+                    </ul>
+            </div>
+            <div><a href="{% url 'home' %}">Stock</a></div>
+        <div><a href="{% url 'about' %}">About Us</a></div>
+        <div id="sign"><a href="{% url 'profile' %}">{{ user.username }}</a></div>
+        <div id="reg"><a href="{% url 'logout' %}">Log Out</a></div>
+      {% else %}
+        <div><a href="{% url 'about' %}">About Us</a></div>
+        <div id="sign"><a href="{% url 'register' %}">Sign Up</a></div>
+        <div id="reg"><a href="{% url 'login' %}">Log In</a></div>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Hero Video Section -->
+  <section class="video-section">
+    <video autoplay muted loop>
+      <source src="{% static 'videos/vedio2.mp4' %}" type="video/mp4" />
+    </video>
+    <div class="overlay-text">
+      <h3>The Only Website That Gets Your Money Into Shape</h3>
+      {% if user.is_authenticated %}
+        <button><a href="{% url 'add_income' %}">Get Started</a></button>
+      {% else %}
+        <button><a href="{% url 'login' %}">Get Started</a></button>
+      {% endif %}
+      
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <div id="maindiv3">
+    <h1>How to get your money into shape?</h1>
+    <div id="steps">
+      <div id="step1">
+        <div>
+          <a href="#s11">Step 1:<br />Track Cash</a>
+        </div>
+        <div>
+          <a href="#s12">Step 2:<br />Analyze Habits</a>
+        </div>
+        <div>
+          <a href="#s13">Step 3:<br />Smart Budget</a>
+        </div>
+      </div>
+
+      <div id="step2">
+        <div class="steep" id="s11">
+          <div class="steeped">
+            <h4>Step 1</h4>
+            <h2>Track your cash flow</h2>
+            <p>
+              Take control of your finances by easily logging your daily
+              expenses. Our intuitive interface makes expense tracking
+              simple and efficient, helping you maintain a clear picture of
+              your spending habits.
+            </p>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            alt="Cash Flow Tracking"
+          />
+        </div>
+
+        <div class="steep" id="s12">
+          <div class="steeped">
+            <h4>Step 2</h4>
+            <h2>Understand your financial habits</h2>
+            <ol>
+              <li>
+                Get detailed insights into your income sources and spending
+                patterns
+              </li>
+              <li>Monitor your cash flow with real-time balance updates</li>
+              <li>Identify areas for improvement and potential savings</li>
+            </ol>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            alt="Financial Analysis"
+          />
+        </div>
+
+        <div class="steep" id="s13">
+          <div class="steeped">
+            <h4>Step 3</h4>
+            <h2>Make your spending stress–free</h2>
+            <ol>
+              <li>
+                Create personalized budgets for different spending
+                categories
+              </li>
+              <li>Get daily spending recommendations to stay on track</li>
+              <li>
+                Set and achieve your financial goals with smart saving
+                strategies
+              </li>
+            </ol>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            alt="Budget Planning"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="maindiv4">
+    <h1>Popular shorts About Finance</h1>
+    <div id="blogs">
+      <div class="blogged">
+        <iframe
+          width="200"
+          height="410"
+          src="https://youtube.com/embed/6Fjs9ZU1f1w?autoplay=0&mute=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="blogged">
+        <iframe
+          width="200"
+          height="410"
+          src="https://youtube.com/embed/RqEivbzyxcs?autoplay=0&mute=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="blogged">
+        <iframe
+          width="200"
+          height="410"
+          src="https://youtube.com/embed/-8MU11Ql7j8?autoplay=0&mute=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="blogged">
+        <iframe
+          width="200"
+          height="410"
+          src="https://youtube.com/embed/2s9m8wVWo-U?autoplay=0&mute=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="blogged">
+        <iframe
+          width="200"
+          height="410"
+          src="https://youtube.com/embed/Oj-UpJ2STC0?autoplay=0&mute=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </div>
+  </div>
+  <div class="stats-section">
+    <div class="stat">
+      <h2>10,000+</h2>
+      <p>Happy Users</p>
+    </div>
+    <div class="stat">
+      <h2>$1M+</h2>
+      <p>Saved</p>
+    </div>
+    <div class="stat">
+      <h2>24/7</h2>
+      <p>Support</p>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>BudgetBuddy</h2>
+        <p>Your smart personal finance tracker for modern living.</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'register' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'set_limit' %}">Set Budget Limit</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: support@budgetbuddy.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Location: 123 FinTech Avenue, NY</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png" alt="Instagram" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; 2025 BudgetBuddy. All rights reserved.</p>
+    </div>
+  </footer>
+  
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

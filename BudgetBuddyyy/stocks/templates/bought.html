@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <title>Bought Stocks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .stocks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .stock-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .stock-card img {
+      max-width: 60px;
+      margin-bottom: 10px;
+    }
+
+    .symbol {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #222;
+    }
+
+    .price {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .no-stocks {
+      text-align: center;
+      color: #666;
+      font-size: 18px;
+    }
+
+    #header {
+        display: flex;
+        justify-content: center;
+      }
+
+      header {
+        background-color: black;
+        height: 9vh;
+        width: 96vw;
+        margin-top: 2vh;
+        margin-bottom: 3vh;
+        z-index: 4;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 20px;
+        box-sizing: border-box;
+      }
+
+      header > #div > nav {
+        width: auto;
+        display: flex;
+        align-items: center;
+        /* justify-content: space-evenly; */
+        gap: 21px;
+        color: whitesmoke;
+        /* font-size: 15px; */
+      }
+      header > #div > nav a {
+        text-decoration: none;
+      }
+      .navigation {
+        font-size: 23px;
+        color: whitesmoke;
+      }
+      #logo img {
+        height: 9vh;
+        width: 8vw;
+      }
+
+      .footer {
+        width: 94.5vw;
+        overflow-x: hidden;
+  background-color: #000;
+  color:aliceblue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 60px 30px 30px;
+  margin-top: 4vh;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section, .footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-brand h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.footer-section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #f0d23b;
+}
+
+.social-icons a img {
+  width: 26px;
+  margin-right: 12px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #bbb;
+}
+  </style>
+</head>
+<body>
+
+
+    <header>
+        <div id="logo"><img src="{% static 'image.png' %}" alt=""></div>
+        <div id="div">
+            <nav>
+               <a href="{% url 'base' %}" class="navigation">Home </a>
+                <a href="{% url 'search_stock' %}" class="navigation">Stocks</a>
+                <a href="{% url 'bought_stocks' %}" class="navigation">Bought</a>
+                <div style="display: inline;border: 1px solid whitesmoke; border-radius: 15px;padding: 8px 8px;"><a href="" style="color: white;" >{{user.username}}</a></div>
+            </nav>
+        </div>
+    </header>
+  <div class="container">
+    <h1>📌 Your Bought Stocks</h1>
+    <br><br>
+
+    {% if bought_stocks %}
+      <div class="stocks-grid">
+        {% for stock in bought_stocks %}
+          <div class="stock-card">
+            {% if stock.image_url %}
+              <img src="{{ stock.image_url }}" alt="{{ stock.symbol }} logo">
+            {% endif %}
+            <div class="symbol">{{ stock.symbol }}</div>
+            <div class="price">${{ stock.price}}</div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="no-stocks">You haven't bought any stocks yet.</p>
+    {% endif %}
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>StockBuddy</h2>
+        <p>Your smart personal finance tracker for modern living.</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'register' %}">Sign Up</a></li>
+          <li><a href="{% url 'bought_stocks' %}">Bought</a></li>
+          <li><a href="{% url 'base' %}">Budgets</a></li>
+          <li><a href="{% url 'search_stock' %}">Stocks</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: support@budgetbuddy.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Location: 123 FinTech Avenue, NY</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png" alt="Instagram" /></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; 2025 StockBuddy. All rights reserved.</p>
+    </div>
+  </footer>
+<script src="https://kit.fontawesome.com/8f19d79027.js" crossorigin="anonymous"></script>
+</body>
+</html>

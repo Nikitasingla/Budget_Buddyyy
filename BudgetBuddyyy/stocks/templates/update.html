@@ -1,0 +1,78 @@
+{% extends 'based2.html' %}
+{% block main_block %}
+
+<style>
+    .form-container {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fffbea;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-family: 'Segoe UI', sans-serif;
+    }
+  
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+  
+    .form-container label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      color: #222;
+    }
+  
+    .form-container input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
+  
+    .form-container input:focus {
+      border-color: #f0b429;
+      outline: none;
+    }
+  
+    .form-container button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #ffb703;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .form-container button:hover {
+      background-color: #f4a261;
+    }
+  </style>
+  
+    <div class="form-container">
+        <h2>Add New Stock</h2>
+        <form method="post"  >
+            {% csrf_token %}
+            <label for="image">Image URL: </label>
+            <input type="url" name="image_url" required id="image">
+            <label for="symbol">Stock Name:</label>
+            <input type="text" name="symbol" required id="symbol">
+            <label for="price">Current price: </label>
+            <input type="number" id="price" name="price" required step="0.01">
+            <label for="Open">Opening Price: </label>
+            <input type="number" id="Open" required name="open" step="0.01">
+            <label for="high">High Price: </label>
+            <input type="number" id="high" name="high" required step="0.01">
+            <label for="low">Low Price: </label>
+            <input type="number" id="low" name="low" required step="0.01">
+            <button type="submit">Update Stock</button>
+        </form>
+    </div>
+{% endblock %}

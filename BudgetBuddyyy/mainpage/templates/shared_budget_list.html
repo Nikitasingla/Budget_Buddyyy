@@ -1,0 +1,16 @@
+{% extends 'blueprint.html' %}
+{% block title %}Your Shared Budgets{% endblock %}
+{% block content %}
+<h2>Your Shared Budgets</h2>
+<ul>
+  {% for budget in budgets %}
+    <li>
+      <a href="{% url 'shared_budget_detail' budget.pk %}">{{ budget.name }}</a> - Total: ₹{{ budget.total_budget }}
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'create_shared_budget' %}">
+  <button>Create More Budget</button>
+</a>
+{% endblock %}
